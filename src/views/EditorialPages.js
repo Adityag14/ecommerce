@@ -44,7 +44,7 @@ export function LookbookPage() {
   return (
     <main className="editorial-page lookbook-page">
       <section className="editorial-heading">
-        <p className="editorial-kicker">The FashionCube edit</p>
+        <p className="editorial-kicker">The Aditya's Edit collection</p>
         <h1>Pieces with a point of view.</h1>
         <p>Fresh finds, easy layers, and details worth keeping around.</p>
       </section>
@@ -75,7 +75,7 @@ export function AboutPage() {
         <p className="editorial-kicker">A little about us</p>
         <h1>Good style should feel like your own.</h1>
         <p>
-          FashionCube is a place to find wearable pieces, thoughtful details,
+          Aditya's Edit is a place to find wearable pieces, thoughtful details,
           and new ideas for the everyday. We believe getting dressed can be
           simple, personal, and a little unexpected.
         </p>

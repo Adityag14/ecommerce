@@ -119,7 +119,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload.error.response.data
+        error: action.payload.error.response.data,
+        products: []
       };
     default:
       return state;

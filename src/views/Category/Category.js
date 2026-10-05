@@ -23,9 +23,31 @@ class Category extends Component {
     this.addToBag = this.addToBag.bind(this);
   }
   componentDidMount() {
-    if (!this.props.products) {
-      this.props.getAllProducts();
+    this.loadProducts();
+  }
+
+  componentDidUpdate(previousProps) {
+    const previousParams = previousProps.match.params;
+    const currentParams = this.props.match.params;
+    if (
+      previousParams.category !== currentParams.category ||
+      previousParams.subcategory !== currentParams.subcategory
+    ) {
+      this.loadProducts();
     }
+  }
+
+  loadProducts = () => {
+    const { category, subcategory } = this.props.match.params;
+    if (!category || category.toLowerCase() === "all") {
+      this.props.getAllProducts();
+      return;
+    }
+
+    const field = subcategory ? "category" : "department";
+    const value = subcategory || category;
+    const normalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+    this.props.getProductsForCollection(field, normalizedValue);
   }
   showHideModal = () => {
     this.setState({ modalShow: false });
@@ -54,7 +76,9 @@ class Category extends Component {
   };
 
   render() {
-    const { products, applyFilters } = this.props;
+    const { products, applyFilters, error, loading } = this.props;
+    const { category, subcategory } = this.props.match.params;
+    const collectionTitle = subcategory || (category === "all" ? "All products" : category);
     console.log(this.props);
     return (
       <div className="container product_section_container">
@@ -68,17 +92,19 @@ class Category extends Component {
                 <li class="active">
                   <a href="/">
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    {this.props.location.pathname.split("/")[2]}
+                    {collectionTitle}
                   </a>
                 </li>
                 <li class="active">
                   <a href="#">
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    {this.props.location.pathname.split("/")[3]}
+                    {subcategory || "collection"}
                   </a>
                 </li>
               </ul>
             </div>
+
+            <h1 className="collection_title">{collectionTitle}</h1>
 
             <div className="sidebar">
               <Filter applyFilters={applyFilters} />
@@ -159,7 +185,7 @@ class Category extends Component {
                 </div>
 
                 <div className="row">
-                  {products &&
+                  {products && products.length > 0 &&
                     products.slice(0, 8).map((item, index) => {
                       return (
                         <div
@@ -175,57 +201,23 @@ class Category extends Component {
                       );
                     })}
                 </div>
-                <div class="product_sorting_container product_sorting_container_bottom clearfix">
-                  <ul class="product_sorting">
-                    <li>
-                      <span>Show:</span>
-                      <span class="num_sorting_text">04</span>
-                      <i class="fa fa-angle-down"></i>
-                      <ul class="sorting_num">
-                        <li class="num_sorting_btn">
-                          <span>01</span>
-                        </li>
-                        <li class="num_sorting_btn">
-                          <span>02</span>
-                        </li>
-                        <li class="num_sorting_btn">
-                          <span>03</span>
-                        </li>
-                        <li class="num_sorting_btn">
-                          <span>04</span>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <span class="showing_results">Showing 1–3 of 12 results</span>
-                  <div class="pages d-flex flex-row align-items-center">
-                    <div class="page_current">
-                      <span>1</span>
-                      <ul class="page_selection">
-                        <li>
-                          <a href="#">1</a>
-                        </li>
-                        <li>
-                          <a href="#">2</a>
-                        </li>
-                        <li>
-                          <a href="#">3</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="page_total">
-                      <span>of</span> 3
-                    </div>
-                    <div id="next_page_1" class="page_next">
-                      <a href="#">
-                        <i
-                          class="fas fa-long-arrow-right"
-                          aria-hidden="true"
-                        ></i>
-                      </a>
-                    </div>
+                {!loading && (error || (products && products.length === 0)) && (
+                  <div className="catalog-empty">
+                    <h2>{collectionTitle} collection</h2>
+                    <p>
+                      {error && error.message !== "products not found"
+                        ? "This collection could not be loaded right now."
+                        : "There are no products in this collection yet."}
+                    </p>
                   </div>
-                </div>
+                )}
+                {products && products.length > 0 && (
+                  <div className="product_sorting_container product_sorting_container_bottom clearfix">
+                    <span className="showing_results">
+                      Showing {Math.min(products.length, 8)} of {products.length} products
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

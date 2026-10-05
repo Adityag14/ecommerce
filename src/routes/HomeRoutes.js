@@ -35,7 +35,7 @@ var routes = [
     component: SingleProductContainer,
   },
   {
-    path: "/fashion-cube/shops/:category",
+    path: "/fashion-cube/shops/:category/:subcategory?",
     layout: BaseLayout,
     component: CategoryContainer,
   },

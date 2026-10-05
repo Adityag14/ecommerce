@@ -7,8 +7,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import HomeCartView from "../HomeCartView";
+import LoginRegister from "../LoginRegisterModal";
 import MobileMenu from "../MobileMenu";
-import device, { size } from "../../modules/mediaQuery";
+import device from "../../modules/mediaQuery";
 import MediaQuery from "react-responsive";
 
 class NavBar extends Component {
@@ -16,6 +17,8 @@ class NavBar extends Component {
     super(props);
     this.state = {
       modalShow: false,
+      authModalShow: false,
+      login: true,
       activeclass: false,
     };
   }
@@ -28,6 +31,14 @@ class NavBar extends Component {
 
   showHideModal = () => {
     this.setState({ modalShow: !this.state.modalShow });
+  };
+
+  showAuthModal = (login) => {
+    this.setState({ authModalShow: true, login });
+  };
+
+  hideAuthModal = () => {
+    this.setState({ authModalShow: false });
   };
 
   handleMenuClicked = () => {
@@ -43,7 +54,7 @@ class NavBar extends Component {
             <div className="col-lg-12 text-right">
               <div className="logo_container">
                 <Link to="/fashion-cube">
-                  Fashion<span>Cube</span>
+                  Aditya's <span>Edit</span>
                 </Link>
               </div>
               <nav className="navbar">
@@ -58,6 +69,23 @@ class NavBar extends Component {
 
                     <div className="mega-menu">
                       <div className="mega-menu-wrap">
+                        <div className="mega-menu-content">
+                          <h5>Catalog</h5>
+                          <ul className="stander">
+                            <li>
+                              <Link to="/fashion-cube/shops/all">View all</Link>
+                            </li>
+                            <li>
+                              <Link to="/fashion-cube/shops/women">Women</Link>
+                            </li>
+                            <li>
+                              <Link to="/fashion-cube/shops/accessories">Accessories</Link>
+                            </li>
+                            <li>
+                              <Link to="/fashion-cube/shops/men">Men</Link>
+                            </li>
+                          </ul>
+                        </div>
                         {departments &&
                           departments.map((item, index) => {
                             return (
@@ -67,11 +95,9 @@ class NavBar extends Component {
                                   {item.categories.split(",").map((i, idx) => {
                                     return (
                                       <li key={idx}>
-                                        <a
-                                          href={`/fashion-cube/shops/${item.departmentName}/${i}`}
-                                        >
+                                        <Link to={`/fashion-cube/shops/${encodeURIComponent(item.departmentName)}/${encodeURIComponent(i)}`}>
                                           {i}
-                                        </a>
+                                        </Link>
                                       </li>
                                     );
                                   })}
@@ -100,9 +126,14 @@ class NavBar extends Component {
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <button
+                      type="button"
+                      className="navbar_icon_button"
+                      aria-label="Sign in or register"
+                      onClick={() => this.showAuthModal(true)}
+                    >
                       <i className="fa fa-user" aria-hidden="true"></i>
-                    </a>
+                    </button>
                   </li>
                   <li className="checkout">
                     <a href="#" onClick={() => this.showHideModal()}>
@@ -129,6 +160,7 @@ class NavBar extends Component {
           <MobileMenu
             activeClass={this.state.activeclass}
             onClose={() => this.handleMenuClicked()}
+            onAuthClick={this.showAuthModal}
           />
         </MediaQuery>
         {this.state.modalShow ? (
@@ -138,6 +170,13 @@ class NavBar extends Component {
             onHide={() => this.showHideModal()}
           />
         ) : null}
+        <LoginRegister
+          show={this.state.authModalShow}
+          login={this.state.login}
+          registerClicked={() => this.showAuthModal(false)}
+          loginClicked={() => this.showAuthModal(true)}
+          onHide={this.hideAuthModal}
+        />
       </div>
     );
   }

@@ -1,10 +1,10 @@
 :root {
-  --brand-green: #2c5b4f;
-  --brand-green-dark: #21483e;
-  --brand-mist: #e8f0eb;
+  --brand-primary: #743b52;
+  --brand-primary-dark: #542d3f;
+  --brand-mist: #f2e9ed;
   --brand-coral: #d4614e;
   --brand-paper: #f5f6f1;
-  --brand-ink: #23342e;
+  --brand-ink: #342b30;
 }
 
 body {
@@ -12,16 +12,38 @@ body {
 }
 
 ::selection {
-  background: var(--brand-green);
+  background: var(--brand-primary);
   color: #fff;
 }
 
 .top_nav {
-  background: var(--brand-green-dark);
+  background: var(--brand-primary-dark);
 }
 
 .main_nav_container {
   background: #fff;
+}
+
+.navbar_icon_button {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.navbar_icon_button:hover {
+  color: var(--brand-primary);
+}
+
+.product_bubble_green {
+  background: var(--brand-coral) !important;
 }
 
 .logo_container a span,
@@ -29,18 +51,18 @@ body {
 .footer_nav li a:hover,
 .product_price,
 .discount .product_info .product_price {
-  color: var(--brand-green) !important;
+  color: var(--brand-primary) !important;
 }
 
 .red_button,
 .newsletter_submit_btn,
 .checkout_items {
-  background: var(--brand-green) !important;
+  background: var(--brand-primary) !important;
 }
 
 .red_button:hover,
 .newsletter_submit_btn:hover {
-  background: var(--brand-green-dark) !important;
+  background: var(--brand-primary-dark) !important;
 }
 
 .add_to_cart_button:hover,
@@ -148,7 +170,7 @@ footer.footer {
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: var(--brand-green);
+  background: var(--brand-primary);
 }
 
 .lookbook-caption > a {
@@ -224,7 +246,7 @@ footer.footer {
 }
 
 .contact-details a {
-  color: var(--brand-green);
+  color: var(--brand-primary);
   font-weight: 600;
 }
 
@@ -275,4 +297,11 @@ footer.footer {
     border-top: 1px solid #dce3dd;
     border-left: 0;
   }
+}
+
+.collection_title {
+  margin: 28px 0 20px;
+  color: var(--brand-ink);
+  font-size: 30px;
+  text-transform: capitalize;
 }

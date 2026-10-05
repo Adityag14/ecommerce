@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import { Link } from "react-router-dom";
 import Banner1 from "../../assets/images/banner_1.jpg";
 import Banner2 from "../../assets/images/banner_2.jpg";
 import Banner3 from "../../assets/images/banner_3.jpg";
@@ -23,7 +24,7 @@ function CategoryBanner(props) {
               data-aos="fade-right"
             >
               <div className="banner_category">
-                <a href="categories.html">women's</a>
+                <Link to="/fashion-cube/shops/women">women</Link>
               </div>
             </div>
           </div>
@@ -36,7 +37,7 @@ function CategoryBanner(props) {
               data-aos="fade-up"
             >
               <div className="banner_category">
-                <a href="categories.html">accessories's</a>
+                <Link to="/fashion-cube/shops/accessories">accessories</Link>
               </div>
             </div>
           </div>
@@ -49,7 +50,7 @@ function CategoryBanner(props) {
               data-aos="fade-left"
             >
               <div className="banner_category">
-                <a href="categories.html">men's</a>
+                <Link to="/fashion-cube/shops/men">men</Link>
               </div>
             </div>
           </div>

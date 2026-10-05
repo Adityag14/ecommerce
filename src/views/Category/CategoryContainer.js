@@ -14,10 +14,13 @@ import { postCart } from "../../redux/actions/cartAction";
 
 const mapStoreToProps = state => ({
   products: state.product.products,
-  loading: state.product.loading
+  loading: state.product.loading,
+  error: state.product.error
 });
 const mapDispatchToProps = dispatch => ({
   getAllProducts: () => dispatch(getAllProducts()),
+  getProductsForCollection: (field, value) =>
+    dispatch(applyFilters(`${field}=${encodeURIComponent(value)}`)),
   applyFilters: filter_string => dispatch(applyFilters(filter_string)),
   postCart: productId => dispatch(postCart(productId))
 });

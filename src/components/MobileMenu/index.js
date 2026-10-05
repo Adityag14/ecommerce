@@ -25,67 +25,30 @@ class MobileMenu extends Component {
         </div>
         <div className="hamburger_menu_content text-right">
           <ul className="menu_top_nav">
-            <li className="menu_item has-children">
-              <a href="#">
-                usd
-                <i className="fa fa-angle-down"></i>
-              </a>
-              <ul className="menu_selection">
-                <li>
-                  <a href="#">cad</a>
-                </li>
-                <li>
-                  <a href="#">aud</a>
-                </li>
-                <li>
-                  <a href="#">eur</a>
-                </li>
-                <li>
-                  <a href="#">gbp</a>
-                </li>
-              </ul>
+            <li className="menu_item">
+              <Link to="/fashion-cube/shops/all">shop catalog</Link>
             </li>
-            <li className="menu_item has-children">
-              <a href="#">
-                English
-                <i className="fa fa-angle-down"></i>
-              </a>
-              <ul className="menu_selection">
-                <li>
-                  <a href="#">French</a>
-                </li>
-                <li>
-                  <a href="#">Italian</a>
-                </li>
-                <li>
-                  <a href="#">German</a>
-                </li>
-                <li>
-                  <a href="#">Spanish</a>
-                </li>
-              </ul>
+            <li className="menu_item">
+              <Link to="/fashion-cube/shops/women">women</Link>
             </li>
-            <li className="menu_item has-children">
-              <a href="#">
-                My Account
-                <i className="fa fa-angle-down"></i>
-              </a>
-              <ul className="menu_selection">
-                <li>
-                  <a href="#">
-                    <i className="fa fa-sign-in" aria-hidden="true"></i>Sign In
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-user-plus" aria-hidden="true"></i>
-                    Register
-                  </a>
-                </li>
-              </ul>
+            <li className="menu_item">
+              <Link to="/fashion-cube/shops/accessories">accessories</Link>
+            </li>
+            <li className="menu_item">
+              <Link to="/fashion-cube/shops/men">men</Link>
             </li>
             <li className="menu_item">
               <Link to="/fashion-cube">home</Link>
+            </li>
+            <li className="menu_item">
+              <button type="button" onClick={() => this.props.onAuthClick(true)}>
+                sign in
+              </button>
+            </li>
+            <li className="menu_item">
+              <button type="button" onClick={() => this.props.onAuthClick(false)}>
+                register
+              </button>
             </li>
             <li className="menu_item">
               <Link to="/fashion-cube/lookbook">lookbook</Link>
@@ -105,6 +68,7 @@ class MobileMenu extends Component {
 MobileMenu.propTypes = {
   activeClass: PropTypes.bool,
   onClose: PropTypes.func,
+  onAuthClick: PropTypes.func,
 };
 
 export default MobileMenu;
